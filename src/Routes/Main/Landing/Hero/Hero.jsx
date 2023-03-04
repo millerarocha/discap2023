@@ -6,7 +6,7 @@ const Hero = () => {
       <div className='hero-content flex-col lg:flex-row-reverse justify-between mx-auto'>
         <img
           src={disabilitiesImg}
-          className='max-w-md h-96 rounded-lg shadow-2xl mb-8 lg:w-1/2  lg:mb-0 object-cover'
+          className='max-w-sm h-96 rounded-lg shadow-2xl mb-8 lg:w-1/2  lg:mb-0 object-cover'
           alt='Descripcion de la imagen de la fecha especial'
         />
         <div className='flex flex-col lg:mr-16 text-center lg:text-left lg:w-1/2'>

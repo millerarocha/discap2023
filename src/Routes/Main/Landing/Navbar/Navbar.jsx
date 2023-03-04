@@ -8,24 +8,24 @@ const Navbar = () => {
         </span>
       </div>
       <div className='flex-none'>
-        <ul className='menu menu-horizontal px-1 gap-1 lg:gap-3'>
+        <ul className='menu menu-horizontal px-1 gap-1 lg:gap-3 grid grid-cols-2 lg:grid-cols-4'>
           <li>
-            <a className='btn btn-outline' href='#about'>
+            <a className='btn btn-outline w-full' href='#about'>
               Nosotros
             </a>
           </li>
           <li>
-            <a className='btn btn-outline' href='#news'>
+            <a className='btn btn-outline  w-full' href='#news'>
               Noticias
             </a>
           </li>
           <li>
-            <a className='btn btn-outline' href='#jobs'>
+            <a className='btn btn-outline  w-full' href='#jobs'>
               Ofertas Empleo
             </a>
           </li>
           <li>
-            <a className='btn btn-outline' href='#donations'>
+            <a className='btn btn-outline  w-full' href='#donations'>
               Donaciones
             </a>
           </li>
