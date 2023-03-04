@@ -17,7 +17,7 @@ const SectionNav = ({ jobsSection }) => {
             <li>
               <Link
                 className='btn border border-white text-white hover:bg-white hover:text-black'
-                to='/'
+                to='/discap2023'
               >
                 Página Principal
               </Link>
