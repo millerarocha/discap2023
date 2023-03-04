@@ -5,7 +5,7 @@ const MainNews = () => {
   return (
     <section>
       <SectionNav />
-      <div className='container mx-auto'>
+      <div className='container mx-auto md:px-5'>
         <h2 className='text-center text-5xl my-12 underline'>Noticias</h2>
         <p className='text-center text-xl w-2/3 mx-auto'>
           Bienvenidos a la sección de noticias, en esta sección encontrarás

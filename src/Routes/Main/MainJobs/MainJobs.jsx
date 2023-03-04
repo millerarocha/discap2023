@@ -5,7 +5,7 @@ const MainJobs = () => {
   return (
     <section>
       <SectionNav jobsSection />
-      <div className='container mx-auto'>
+      <div className='container mx-auto  md:px-5'>
         <h2 className='text-center text-5xl my-12 underline'>
           Ofertas de empleo
         </h2>
