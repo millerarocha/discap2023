@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, HashRouter, Routes, Route } from 'react-router-dom';
 import Admin from './Routes/Admin';
 import Main from './Routes/Main';
 import MainNews from './Routes/Main/MainNews';
@@ -7,7 +7,7 @@ import NotFound from './Routes/NotFound';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/noticias' element={<MainNews />} />
@@ -15,7 +15,7 @@ function App() {
         <Route path='/admin' element={<Admin />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
