@@ -7,15 +7,15 @@ import NotFound from './Routes/NotFound';
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <Routes>
-        <Route path='/' element={<Main />} />
+        <Route path='/discap2023/' element={<Main />} />
         <Route path='/noticias' element={<MainNews />} />
         <Route path='/empleos' element={<MainJobs />} />
         <Route path='/admin' element={<Admin />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </HashRouter>
+    </Router>
   );
 }
 
