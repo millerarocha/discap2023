@@ -24,6 +24,7 @@ function App() {
           element={<Admin section={<JobsEditor />} />}
         />
         <Route path='/login' element={<Login />} />
+        <Route path='/admin' element={<Login />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router>

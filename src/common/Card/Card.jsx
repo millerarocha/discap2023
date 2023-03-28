@@ -5,6 +5,9 @@ const Card = ({
   cardDate = '01/12/2023',
   cardText = 'Texto explicativo',
   cardBtnText,
+  isAdmin = false,
+  onEditClick,
+  onDeleteClick
 }) => {
   return (
     <div className='card w-full bg-primary text-primary-content'>
@@ -17,6 +20,16 @@ const Card = ({
             <Link className='btn btn-sm bg-white text-black border border-white hover:text-white'>
               {cardBtnText}
             </Link>
+          )}
+          {isAdmin && (
+            <div className="flex gap-3 mt-5">
+              <button className='btn btn-sm border border-orange-500 text-white' onClick={onEditClick}>
+                Editar
+              </button>
+              <button className='btn btn-sm border border-red-500 text-white' onClick={onDeleteClick}>
+                Eliminar
+              </button>
+            </div>
           )}
         </div>
       </div>
