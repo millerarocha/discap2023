@@ -4,14 +4,26 @@ import EditorTitle from "../EditorTitle/EditorTitle";
 import EditorForm from "../EditorForm";
 
 const NewsEditor = () => {
-  const [isCreateNew, setIsCreateNew] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [newInfo, setNewInfo] = useState({})
+  
   const btnTextInfo = ()=>{
-    return isCreateNew ? 'Regresar' : 'Crear Noticia'
+    return isFormOpen ? 'Regresar' : 'Crear Noticia'
   }
+
+  const createNew = ()=>{
+    setIsFormOpen(!isFormOpen);
+    setNewInfo({})
+  }
+  const editNew = ()=>{
+    setIsFormOpen(!isFormOpen);
+    setNewInfo({})
+  }
+
   return (
     <section>
-      <EditorTitle title="Editor de Noticias" btnText={btnTextInfo()} onClick={()=>setIsCreateNew(!isCreateNew)}/>
-      {!isCreateNew && (
+      <EditorTitle title="Editor de Noticias" btnText={btnTextInfo()} onClick={createNew}/>
+      {!isFormOpen && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <Card isAdmin />
           <Card isAdmin />
@@ -19,7 +31,7 @@ const NewsEditor = () => {
           <Card isAdmin />
         </div>
       )}
-      {isCreateNew && <EditorForm />}
+      {isFormOpen && <EditorForm />}
     </section>
   );
 };
