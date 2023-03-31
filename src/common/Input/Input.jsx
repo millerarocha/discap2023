@@ -3,16 +3,16 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const editorConfiguration = {
   toolbar: [
-    'undo',
-    'redo',
-    'heading',
-    '|',
-    'bold',
-    'italic',
-    'bulletedList',
-    'numberedList',
-    '|',
-    'link',
+    "undo",
+    "redo",
+    "heading",
+    "|",
+    "bold",
+    "italic",
+    "bulletedList",
+    "numberedList",
+    "|",
+    "link",
   ],
 };
 
@@ -35,12 +35,6 @@ const Input = ({ label = "input title", placeholder, isEditor = false }) => {
           onChange={(event, editor) => {
             const data = editor.getData();
             console.log({ event, editor, data });
-          }}
-          onBlur={(event, editor) => {
-            console.log("Blur.", editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log("Focus.", editor);
           }}
         />
       ) : (
