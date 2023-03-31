@@ -7,6 +7,7 @@ import NotFound from './Routes/NotFound';
 import Login from './Routes/Admin/Login';
 import NewsEditor from './Routes/Admin/Dashboard/NewsEditor';
 import JobsEditor from './Routes/Admin/Dashboard/JobsEditor';
+import SpecialDateEditor from './Routes/Admin/Dashboard/SpecialDateEditor';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
         <Route
           path='/admin/jobs'
           element={<Admin section={<JobsEditor />} />}
+        />
+        <Route
+          path='/admin/special-date'
+          element={<Admin section={<SpecialDateEditor />} />}
         />
         <Route path='/login' element={<Login />} />
         <Route path='/admin' element={<Login />} />

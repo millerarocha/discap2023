@@ -16,6 +16,9 @@ const Menu = () => {
         <Link className='btn btn-primary' to='/admin/jobs'>
           Editor de Empleos
         </Link>
+        <Link className='btn btn-primary' to='/admin/special-date'>
+          Editor Fecha Especial
+        </Link>
       </div>
     </>
   );

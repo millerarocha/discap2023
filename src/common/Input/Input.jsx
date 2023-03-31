@@ -16,7 +16,9 @@ const editorConfiguration = {
   ],
 };
 
-const Input = ({ label = "input title", placeholder, isEditor = false }) => {
+const Input = ({ label = "input title", value='', placeholder, name, isEditor = false, onInputChange, onEditorChange }) => {
+
+  
   return (
     <div className="form-control w-full">
       <label className="label">
@@ -24,24 +26,25 @@ const Input = ({ label = "input title", placeholder, isEditor = false }) => {
       </label>
       {isEditor ? (
         <CKEditor
+          name={name}
           className="form-control w-full"
           editor={ClassicEditor}
           config={editorConfiguration}
-          data={placeholder}
+          data={value}
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor);
           }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log({ event, editor, data });
-          }}
+          onChange={onEditorChange}
         />
       ) : (
         <input
+          name={name}
           type="text"
           placeholder={placeholder}
           className="input input-bordered w-full"
+          value={value}
+          onChange={onInputChange}
         />
       )}
     </div>
