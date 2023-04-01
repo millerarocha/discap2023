@@ -32,7 +32,7 @@ const NewsEditor = () => {
     setNewInfo(newState)
   }
 
-  const handleChangeEditor = (event, editor) => {
+  const handleChangeEditor = (e, editor) => {
     const data = editor.getData();
     const newState = {...newInfo}
     newState['description'] = data;

@@ -27,14 +27,10 @@ const Input = ({ label = "input title", value='', placeholder, name, isEditor = 
       {isEditor ? (
         <CKEditor
           name={name}
-          className="form-control w-full"
+          className="form-control w-full h-6 max-h-20"
           editor={ClassicEditor}
           config={editorConfiguration}
           data={value}
-          onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
-            console.log("Editor is ready to use!", editor);
-          }}
           onChange={onEditorChange}
         />
       ) : (
