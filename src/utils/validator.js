@@ -1,12 +1,12 @@
 export const validateText = (text, minWords, maxWords) => {
-  // Remove leading and trailing white space from text
-  text = text.trim();
   
   // Check if text is empty
-  if (text === "") {
+  if (text === "" || text === undefined) {
     return false;
   }
   
+  // Remove leading and trailing white space from text
+  text = text.trim();
   // Count the number of words in the text
   const words = text.split(" ");
   const numWords = words.length;
