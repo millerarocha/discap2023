@@ -10,8 +10,10 @@ import {
   serverTimestamp,
   collection,
   getDocs,
+  query,
   doc,
-  deleteDoc
+  deleteDoc,
+  orderBy
 } from "firebase/firestore";
 import { countWordsAndTruncate, formatDate } from "../../../../utils/validator";
 
@@ -19,20 +21,22 @@ const collectionRef = collection(db, "news");
 
 const NewsEditor = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isEditorMode, setIsEditorMode] = useState(false);
   const [newInfo, setNewInfo] = useState({});
   const [news, setNews] = useState([]);
 
-  
   const btnTextInfo = () => {
     return isFormOpen ? "Regresar" : "Crear Noticia";
   };
 
   const createNew = () => {
     setIsFormOpen(!isFormOpen);
+    setIsEditorMode(false);
     setNewInfo({});
   };
 
   const editNew = (data) => {
+    setIsEditorMode(true);
     setIsFormOpen(!isFormOpen);
     setNewInfo({
       title: data.title,
@@ -46,7 +50,7 @@ const NewsEditor = () => {
     newState[e.target.name] = e.target.value;
     setNewInfo(newState);
   };
-  
+
   const handleChangeEditor = (e, editor) => {
     const data = editor.getData();
     const newState = { ...newInfo };
@@ -56,7 +60,7 @@ const NewsEditor = () => {
 
   const onSubmitData = async (e) => {
     e.preventDefault();
-    
+
     const isTitleValid = validateText(newInfo.title, 2, 10);
     const isDescriptionValid = validateText(newInfo.description, 0, 2000);
 
@@ -65,7 +69,7 @@ const NewsEditor = () => {
 
       return;
     }
-    
+
     try {
       Swal.fire({
         title: "Subiendo Información",
@@ -86,7 +90,7 @@ const NewsEditor = () => {
       Swal.fire("Error", err, "error");
     }
   };
-  
+
   const deleteDocById = async (id) => {
     try {
       await deleteDoc(doc(db, "news", id));
@@ -111,10 +115,10 @@ const NewsEditor = () => {
       }
     });
   };
-  
+
   useEffect(() => {
     const getData = async () => {
-      await getDocs(collectionRef)
+      await getDocs(query(collectionRef, orderBy('timestamp','desc')))
         .then((data) => {
           let newsData = data.docs.map((doc) => ({
             ...doc.data(),
@@ -126,7 +130,7 @@ const NewsEditor = () => {
     };
     getData();
   }, [isFormOpen, deleteDocById]);
-  
+
   return (
     <section>
       <EditorTitle
@@ -155,6 +159,7 @@ const NewsEditor = () => {
           data={newInfo}
           onInputChange={handleChange}
           onEditorChange={handleChangeEditor}
+          isEditorMode={isEditorMode}
           onSave={onSubmitData}
         />
       )}
