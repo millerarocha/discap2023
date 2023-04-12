@@ -10,27 +10,19 @@ import {
   serverTimestamp,
   collection,
   getDocs,
+  doc,
+  deleteDoc
 } from "firebase/firestore";
+import { countWordsAndTruncate, formatDate } from "../../../../utils/validator";
 
 const collectionRef = collection(db, "news");
 
 const NewsEditor = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newInfo, setNewInfo] = useState({});
-  const [news, setNews] = useState([]);  
+  const [news, setNews] = useState([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      await getDocs(collectionRef)
-        .then((data) => {
-          let newsData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-          setNews(newsData)
-        })
-        .catch((err) => Swal.fire("Error", err, "error"));
-    };
-    getData();
-  }, [isFormOpen]);
-
+  
   const btnTextInfo = () => {
     return isFormOpen ? "Regresar" : "Crear Noticia";
   };
@@ -44,7 +36,8 @@ const NewsEditor = () => {
     setIsFormOpen(!isFormOpen);
     setNewInfo({
       title: data.title,
-      description: data.description
+      resume: data.resume,
+      description: data.description,
     });
   };
 
@@ -53,7 +46,7 @@ const NewsEditor = () => {
     newState[e.target.name] = e.target.value;
     setNewInfo(newState);
   };
-
+  
   const handleChangeEditor = (e, editor) => {
     const data = editor.getData();
     const newState = { ...newInfo };
@@ -63,7 +56,7 @@ const NewsEditor = () => {
 
   const onSubmitData = async (e) => {
     e.preventDefault();
-
+    
     const isTitleValid = validateText(newInfo.title, 2, 10);
     const isDescriptionValid = validateText(newInfo.description, 0, 2000);
 
@@ -72,7 +65,7 @@ const NewsEditor = () => {
 
       return;
     }
-
+    
     try {
       Swal.fire({
         title: "Subiendo Información",
@@ -93,7 +86,47 @@ const NewsEditor = () => {
       Swal.fire("Error", err, "error");
     }
   };
+  
+  const deleteDocById = async (id) => {
+    try {
+      await deleteDoc(doc(db, "news", id));
+      Swal.fire("Eliminado!", "La noticia ha sido eliminada.", "success");
+    } catch (error) {
+      console.error(`Error deleting document with ID ${id}: `, error);
+    }
+  };
 
+  const deleteData = (id) => {
+    Swal.fire({
+      title: "Seguro de eliminar la noticia?",
+      text: "Esta acción no se puede revertir!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, Eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteDocById(id);
+      }
+    });
+  };
+  
+  useEffect(() => {
+    const getData = async () => {
+      await getDocs(collectionRef)
+        .then((data) => {
+          let newsData = data.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setNews(newsData);
+        })
+        .catch((err) => Swal.fire("Error", err, "error"));
+    };
+    getData();
+  }, [isFormOpen, deleteDocById]);
+  
   return (
     <section>
       <EditorTitle
@@ -103,8 +136,16 @@ const NewsEditor = () => {
       />
       {!isFormOpen && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {news.map((data)=>(
-            <Card cardTitle={data.title} cardText={data.description} isAdmin onEditClick={()=> editNew(data)} />  
+          {news.map((data) => (
+            <Card
+              key={data.id}
+              cardTitle={data.title}
+              cardText={countWordsAndTruncate(data.resume, 10)}
+              isAdmin
+              onEditClick={() => editNew(data)}
+              cardDate={formatDate(data.timestamp)}
+              onDeleteClick={() => deleteData(data.id)}
+            />
           ))}
         </div>
       )}

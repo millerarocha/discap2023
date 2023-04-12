@@ -3,6 +3,7 @@ import Input from "../../../../common/Input";
 const EditorForm = ({
   title = "Diligencie los campos",
   titleLabel = "Titulo",
+  resumeLabel = 'Resumen',
   descriptionLabel = "Descripción",
   data = {},
   onInputChange,
@@ -14,6 +15,7 @@ const EditorForm = ({
       <h2 className="font-bold text-lg uppercase text-center mb-5">{title}</h2>
       <form className="flex flex-col gap-4">
         <Input name='title' label={titleLabel} value={data.title} onInputChange={onInputChange} />
+        <Input name='resume' label={resumeLabel} value={data.resume} onInputChange={onInputChange} />
         <Input
           name='editor'
           label={descriptionLabel}
