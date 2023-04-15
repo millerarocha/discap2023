@@ -67,7 +67,7 @@ const NewsEditor = () => {
 
     const isTitleValid = validateText(newInfo.title, 2, 10);
     const isResumeValid = validateText(newInfo.resume, 2, 200);
-    const isDescriptionValid = validateText(newInfo.description, 5, 2000);
+    const isDescriptionValid = validateText(newInfo.description, 0, 2000);
 
     if (!isTitleValid || !isResumeValid || !isDescriptionValid) {
       Swal.fire("Error", "Existen campos vacíos o incompletos", "error");
@@ -101,7 +101,7 @@ const NewsEditor = () => {
 
     const isTitleValid = validateText(newInfo.title, 2, 10);
     const isResumeValid = validateText(newInfo.resume, 2, 200);
-    const isDescriptionValid = validateText(newInfo.description, 5, 2000);
+    const isDescriptionValid = validateText(newInfo.description, 0, 2000);
 
     if (!isTitleValid || !isResumeValid || !isDescriptionValid) {
       Swal.fire("Error", "Existen campos vacíos o incompletos", "error");
@@ -191,7 +191,7 @@ const NewsEditor = () => {
         onClick={createNew}
       />
       {!isFormOpen && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
           {news.map((data) => (
             <Card
               key={data.id}
