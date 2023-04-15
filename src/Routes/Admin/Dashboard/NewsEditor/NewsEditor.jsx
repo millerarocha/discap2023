@@ -13,17 +13,20 @@ import {
   query,
   doc,
   deleteDoc,
-  orderBy
+  orderBy,
+  updateDoc,
 } from "firebase/firestore";
 import { countWordsAndTruncate, formatDate } from "../../../../utils/validator";
 
 const collectionRef = collection(db, "news");
 
 const NewsEditor = () => {
+  const [isGettingData, setIsGettingData] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEditorMode, setIsEditorMode] = useState(false);
   const [newInfo, setNewInfo] = useState({});
   const [news, setNews] = useState([]);
+  const [newToEdit, setNewToEdit] = useState("");
 
   const btnTextInfo = () => {
     return isFormOpen ? "Regresar" : "Crear Noticia";
@@ -37,6 +40,7 @@ const NewsEditor = () => {
 
   const editNew = (data) => {
     setIsEditorMode(true);
+    setNewToEdit(data.id);
     setIsFormOpen(!isFormOpen);
     setNewInfo({
       title: data.title,
@@ -62,11 +66,11 @@ const NewsEditor = () => {
     e.preventDefault();
 
     const isTitleValid = validateText(newInfo.title, 2, 10);
-    const isDescriptionValid = validateText(newInfo.description, 0, 2000);
+    const isResumeValid = validateText(newInfo.resume, 2, 200);
+    const isDescriptionValid = validateText(newInfo.description, 5, 2000);
 
-    if (!isTitleValid && !isDescriptionValid) {
-      Swal.fire("Error", "Falta completar campos", "error");
-
+    if (!isTitleValid || !isResumeValid || !isDescriptionValid) {
+      Swal.fire("Error", "Existen campos vacíos o incompletos", "error");
       return;
     }
 
@@ -84,7 +88,51 @@ const NewsEditor = () => {
         "La noticia ha sido creada correctamente!",
         "success"
       ).then(() => {
+        setIsGettingData(true);
         setIsFormOpen(false);
+      });
+    } catch (err) {
+      Swal.fire("Error", err, "error");
+    }
+  };
+
+  const onEditData = async (e) => {
+    e.preventDefault();
+
+    const isTitleValid = validateText(newInfo.title, 2, 10);
+    const isResumeValid = validateText(newInfo.resume, 2, 200);
+    const isDescriptionValid = validateText(newInfo.description, 5, 2000);
+
+    if (!isTitleValid || !isResumeValid || !isDescriptionValid) {
+      Swal.fire("Error", "Existen campos vacíos o incompletos", "error");
+
+      return;
+    }
+
+    try {
+      Swal.fire({
+        title: "Subiendo Información",
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+      try {
+        await updateDoc(doc(db, "news", newToEdit), {
+          ...newInfo,
+          timestamp: serverTimestamp(),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      Swal.fire(
+        "Muy bien",
+        "La noticia ha sido editada correctamente!",
+        "success"
+      ).then(() => {
+        setIsGettingData(true);
+        setIsFormOpen(false);
+        setNewToEdit("");
       });
     } catch (err) {
       Swal.fire("Error", err, "error");
@@ -95,6 +143,7 @@ const NewsEditor = () => {
     try {
       await deleteDoc(doc(db, "news", id));
       Swal.fire("Eliminado!", "La noticia ha sido eliminada.", "success");
+      setIsGettingData(true);
     } catch (error) {
       console.error(`Error deleting document with ID ${id}: `, error);
     }
@@ -118,7 +167,7 @@ const NewsEditor = () => {
 
   useEffect(() => {
     const getData = async () => {
-      await getDocs(query(collectionRef, orderBy('timestamp','desc')))
+      await getDocs(query(collectionRef, orderBy("timestamp", "desc")))
         .then((data) => {
           let newsData = data.docs.map((doc) => ({
             ...doc.data(),
@@ -127,9 +176,12 @@ const NewsEditor = () => {
           setNews(newsData);
         })
         .catch((err) => Swal.fire("Error", err, "error"));
+      setIsGettingData(false);
     };
-    getData();
-  }, [isFormOpen, deleteDocById]);
+    if (isGettingData) {
+      getData();
+    }
+  }, [isGettingData]);
 
   return (
     <section>
@@ -161,6 +213,7 @@ const NewsEditor = () => {
           onEditorChange={handleChangeEditor}
           isEditorMode={isEditorMode}
           onSave={onSubmitData}
+          onEdit={onEditData}
         />
       )}
     </section>
