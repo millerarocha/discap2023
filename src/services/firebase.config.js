@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkz6xlSJvEaNJ08Spoinkb1Q5LwDYKobI",
@@ -7,9 +8,10 @@ const firebaseConfig = {
   projectId: "discapweb-6bfef",
   storageBucket: "discapweb-6bfef.appspot.com",
   messagingSenderId: "453918155865",
-  appId: "1:453918155865:web:2366c745cc93a89b9afd48"
+  appId: "1:453918155865:web:2366c745cc93a89b9afd48",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 export const db = getFirestore(app);
