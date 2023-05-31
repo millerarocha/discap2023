@@ -123,7 +123,6 @@ const JobsEditor = () => {
           timestamp: serverTimestamp(),
         });
       } catch (error) {
-        console.log(error);
       }
       Swal.fire(
         'Muy bien',
@@ -187,7 +186,6 @@ const JobsEditor = () => {
     }
   }, [isGettingData]);
 
-  console.log(jobs);
 
   return (
     <section>

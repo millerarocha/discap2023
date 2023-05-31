@@ -123,7 +123,6 @@ const NewsEditor = () => {
           timestamp: serverTimestamp(),
         });
       } catch (error) {
-        console.log(error);
       }
       Swal.fire(
         'Muy bien',

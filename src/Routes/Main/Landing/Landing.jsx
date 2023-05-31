@@ -42,8 +42,6 @@ const Landing = () => {
     getData();
   }, []);
 
-  console.log(news, jobs);
-
   return (
     <>
       <div className="container mx-auto">
