@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import SectionNav from "../../../../common/SectionNav/SectionNav";
 
 const DetailNew = () => {
   return (
-    <div>DetailNew</div>
-  )
-}
+    <>
+      <SectionNav />
+      DetailNew
+    </>
+  );
+};
 
-export default DetailNew
+export default DetailNew;
