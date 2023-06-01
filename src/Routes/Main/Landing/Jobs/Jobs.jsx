@@ -17,10 +17,9 @@ const Jobs = ({ jobs }) => {
               key={data.id}
               cardTitle={data.title}
               cardText={countWordsAndTruncate(data.resume, 10)}
-              isAdmin
-              onEditClick={() => editJob(data)}
               cardDate={formatDate(data.timestamp)}
-              onDeleteClick={() => deleteData(data.id)}
+              cardBtnText='Ver oferta'              
+              btnLink={`/empleo/${data.id}`}
             />
           ))
         )}

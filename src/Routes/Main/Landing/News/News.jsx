@@ -17,10 +17,9 @@ const News = ({ news }) => {
               key={data.id}
               cardTitle={data.title}
               cardText={countWordsAndTruncate(data.resume, 10)}
-              isAdmin
-              onEditClick={() => editNew(data)}
               cardDate={formatDate(data.timestamp)}
-              onDeleteClick={() => deleteData(data.id)}
+              cardBtnText='Leer más...'
+              btnLink={`/noticia/${data.id}`}
             />
           ))
         )}

@@ -8,6 +8,8 @@ import Login from './Routes/Admin/Login';
 import NewsEditor from './Routes/Admin/Dashboard/NewsEditor';
 import JobsEditor from './Routes/Admin/Dashboard/JobsEditor';
 import SpecialDateEditor from './Routes/Admin/Dashboard/SpecialDateEditor';
+import DetailNew from './Routes/Main/MainNews/DetailNew/DetailNew';
+import DetailJob from './Routes/Main/MainJobs/DetailJob/DetailJob';
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/noticias' element={<MainNews />} />
+        <Route path='/noticia/:id' element={<DetailNew />} />
         <Route path='/empleos' element={<MainJobs />} />
+        <Route path='/empleo/:id' element={<DetailJob />} />
         <Route
           path='/admin/news'
           element={<Admin section={<NewsEditor />} />}

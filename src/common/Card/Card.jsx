@@ -5,6 +5,7 @@ const Card = ({
   cardDate = '01/12/2023',
   cardText = 'Texto explicativo',
   cardBtnText,
+  btnLink,
   isAdmin = false,
   onEditClick,
   onDeleteClick
@@ -17,7 +18,7 @@ const Card = ({
         <p>{cardText}</p>
         <div className='card-actions justify-end'>
           {cardBtnText && (
-            <Link className='btn btn-sm bg-white text-black border border-white hover:text-white'>
+            <Link className='btn btn-sm bg-white text-black border border-white hover:text-white' to={btnLink}>
               {cardBtnText}
             </Link>
           )}
