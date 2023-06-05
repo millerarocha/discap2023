@@ -1,7 +1,7 @@
-import React from 'react';
+import Dashboard from './Dashboard';
 
-const Admin = () => {
-  return <div>Admin</div>;
+const Admin = ({ section }) => {
+  return <Dashboard children={section} />;
 };
 
 export default Admin;
