@@ -11,13 +11,8 @@ const Hero = () => {
         />
         <div className='flex flex-col lg:mr-16 text-center lg:text-left lg:w-1/2'>
           <div>
-            <h1 className='text-4xl font-bold'>Titulo Fecha Especial!</h1>
+            <h1 className='text-4xl font-bold'>Bienvenidos!</h1>
             <p className='py-6'>
-              Descripción sobre la fecha especial. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Minima tempore error dicta sint
-              similique, ducimus quisquam sequi, earum voluptatem itaque fugiat
-              reprehenderit? Blanditiis error modi possimus repudiandae.
-              Doloremque, cum impedit.
             </p>
           </div>
           <div>

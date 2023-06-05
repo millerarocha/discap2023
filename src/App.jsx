@@ -10,12 +10,14 @@ import JobsEditor from './Routes/Admin/Dashboard/JobsEditor';
 import SpecialDateEditor from './Routes/Admin/Dashboard/SpecialDateEditor';
 import DetailNew from './Routes/Main/MainNews/DetailNew/DetailNew';
 import DetailJob from './Routes/Main/MainJobs/DetailJob/DetailJob';
+import Terms from './Routes/Main/Terms/Terms';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Main />} />
+        <Route path='/terms' element={<Terms />} />
         <Route path='/noticias' element={<MainNews />} />
         <Route path='/noticia/:id' element={<DetailNew />} />
         <Route path='/empleos' element={<MainJobs />} />

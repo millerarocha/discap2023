@@ -45,14 +45,14 @@ const Landing = () => {
   return (
     <>
       <div className="container mx-auto">
-        <Navbar />
+        <Navbar isLanding/>
         <Hero />
         <About />
         <News news={news}/>
         <Jobs jobs={jobs}/>
         <Donations />
       </div>
-      <Footer />
+      <Footer isLanding/>
     </>
   );
 };
